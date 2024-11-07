@@ -12,6 +12,7 @@ const STANDARD_UUID = "0000XXXX-0000-1000-8000-00805f9b34fb";
 const WIFI_CONNECT_SERVICE_UUID = "6b0b";
 const WIFI_CONNECT_SSID_CHARACTERISTIC_UUID = "cf09";
 const WIFI_CONNECT_PASS_CHARACTERISTIC_UUID = "ee6a";
+const WIFI_CONNECT_OUCHI_UUID_CHARACTERISTIC_UUID = "cce8";
 
 let selectedDevice = null; // デバイス
 let wifiService = null;
@@ -106,9 +107,10 @@ const writeWifiInfo = async () => {
   // データをformから取得
   const ssid = document.getElementById("wifi_ssid").value;
   const pass = document.getElementById("wifi_pass").value;
+  const ouchiUuid = document.getElementById("ouchi_uuid").value;
 
   // バリデーション
-  if (!ssid || !pass) {
+  if (!ssid || !pass || !ouchiUuid) {
     // 両方入力されてることを確認
     console.log("SSID, PASS両方入力してください");
     alert("SSID, PASS両方入力してください");
@@ -123,6 +125,9 @@ const writeWifiInfo = async () => {
     const passCharacteristic = await wifiService.getCharacteristic(
       convertToStandardUUID(WIFI_CONNECT_PASS_CHARACTERISTIC_UUID)
     );
+    const ouchiUuidCharacteristic = await wifiService.getCharacteristic(
+      convertToStandardUUID(WIFI_CONNECT_OUCHI_UUID_CHARACTERISTIC_UUID)
+    );
 
     //  Uint8Arrayを返すutf8変換用のインスタンス
     const encoder = new TextEncoder(); // new Uint8Array([ssid])
@@ -130,16 +135,18 @@ const writeWifiInfo = async () => {
     // 送信
     ssidCharacteristic.writeValue(encoder.encode(ssid));
     passCharacteristic.writeValue(encoder.encode(pass));
-
+    ouchiUuidCharacteristic.writeValue(encoder.encode(ouchiUuid));
     // ssidCharacteristic.writeValue(new Uint8Array([ssid]));
     // passCharacteristic.writeValue(new Uint8Array([ssid]));
 
     // log
     console.log(
-      `WiFi情報をデバイスに書き込みました SSID: ${ssid}, PASS: ${pass}`
+      `WiFi情報をデバイスに書き込みました SSID: ${ssid}, PASS: ${pass}, OuchiUuid: ${ouchiUuid}`
     );
     // alert(`WiFi情報をデバイスに書き込みました SSID: ${ssid}, PASS: ${pass}`);
   } catch (error) {
+    console.error(error);
+
     console.error("WiFi情報の書き込みに失敗した");
     alert("WiFi情報の書き込みに失敗した");
   }
