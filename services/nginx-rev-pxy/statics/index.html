@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WiFi SSID/PASS設定</title>
+</head>
+<body>
+    <div id="top" class="container">
+        <h1>WiFi SSID/パスワード設定</h1>
+
+        <label>デバイス名</label> <input type="text" id="device_name" class="form-control">
+        <br>
+        <button id="scanBtn" class="btn btn-default">スキャン</button>
+        <label>デバイススキャン: </label> <span id="device_scanned">device_scanned</span>
+        <br>
+        <br>
+        <button id="connectBtn" class="btn btn-default">デバイス接続</button>
+        <label>デバイスBLE接続: </label> <span id="device_connected">device_connected</span>
+        <br>
+        <br>
+        <label>WiFiのSSID</label> <input type="text" id="wifi_ssid" class="form-control">
+        <label>WiFiのPASS</label> <input type="text" id="wifi_pass" class="form-control">
+        <button id="wifiConnectBtn" class="btn btn-default">デバイス&lt;write&gt;</button>
+    </div>
+
+    <script src="./scripts/start.js"></script>
+</body>
+</html>
