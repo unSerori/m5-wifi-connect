@@ -12,5 +12,5 @@ services:
     ports: # ホストマシンのポートとコンテナのポートをマッピング 
       # - 80:80 # httpアクセス用のポート
       - "${REV_PXY_HTTPS_HOST_PORT:-443}:443"
-    restart: always
+    # restart: always
     tty: true
